@@ -6,7 +6,7 @@ import 'package:task_arz_country/bloc/country/country_state.dart';
 import 'package:task_arz_country/bloc/theme/theme_bloc.dart';
 import 'package:task_arz_country/bloc/theme/theme_event.dart';
 import 'package:task_arz_country/bloc/theme/theme_state.dart';
-import 'package:task_arz_country/data/model/country.dart';
+import 'package:task_arz_country/data/model/country_detail.dart';
 import 'package:task_arz_country/data/model/countrys.dart';
 import 'package:task_arz_country/widgets/category_countries.dart';
 import 'package:task_arz_country/widgets/my_dropdown_widget.dart';

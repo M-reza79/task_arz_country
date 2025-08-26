@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_arz_country/bloc/country_detail/country_detail_bloc.dart';
+import 'package:task_arz_country/bloc/country_detail/country_detail_event.dart';
 
 import 'package:task_arz_country/data/model/countrys.dart';
+import 'package:task_arz_country/views/country_detail_screen.dart';
 
 import 'package:task_arz_country/widgets/cached_image.dart';
 
@@ -22,6 +26,21 @@ class CategoryCountries extends StatelessWidget {
       ) {
         final country = countrylist[index];
         return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (routeContext) {
+                  return BlocProvider(
+                    create: (blocContext) =>
+                        CountryDetailBloc() ,
+                    child:
+                          CountryDetailScreen(country:country ,),
+                  );
+                },
+              ),
+            );
+          },
           // onTap: () => nviagt(
           //   context,
           //   BlocProvider(

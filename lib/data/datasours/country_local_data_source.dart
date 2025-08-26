@@ -31,7 +31,7 @@ class CountryLocalDataSource
         ex.response?.data['message'],
       );
     } catch (ex) {
-      print(ex);
+     
       throw ApiException(0, 'unknown error');
     }
   }
