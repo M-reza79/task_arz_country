@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_arz_country/bloc/country/country_bloc.dart';
 import 'package:task_arz_country/bloc/country_detail/country_detail_bloc.dart';
 import 'package:task_arz_country/bloc/country_detail/country_detail_event.dart';
+import 'package:task_arz_country/data/model/country_detail.dart';
 
 import 'package:task_arz_country/data/model/countrys.dart';
 import 'package:task_arz_country/views/country_detail_screen.dart';
@@ -30,27 +32,17 @@ class CategoryCountries extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (routeContext) {
+                builder: (context) {
                   return BlocProvider(
-                    create: (blocContext) =>
-                        CountryDetailBloc() ,
-                    child:
-                          CountryDetailScreen(country:country ,),
+                     
+                      create: (context) => CountryDetailBloc(),
+                      child: CountryDetailScreen(country: country),
                   );
                 },
               ),
             );
           },
-          // onTap: () => nviagt(
-          //   context,
-          //   BlocProvider(
-          //     create: (context) => CountryBloc(),
-          //     child: CountryView(
-          //       textColor: textColor,
-          //       country: countrylist[index],
-          //     ),
-          //   ),
-          // ),
+
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,

@@ -6,8 +6,9 @@ import 'package:task_arz_country/bloc/country/country_state.dart';
 import 'package:task_arz_country/bloc/theme/theme_bloc.dart';
 import 'package:task_arz_country/bloc/theme/theme_event.dart';
 import 'package:task_arz_country/bloc/theme/theme_state.dart';
-import 'package:task_arz_country/data/model/country_detail.dart';
+ 
 import 'package:task_arz_country/data/model/countrys.dart';
+ 
 import 'package:task_arz_country/widgets/category_countries.dart';
 import 'package:task_arz_country/widgets/my_dropdown_widget.dart';
 import 'package:task_arz_country/widgets/serche.dart';
@@ -33,12 +34,14 @@ class _HomeScrennesState
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(
+      context,
+    ).colorScheme.onSurface;
     return Scaffold(
+
+ 
       body: BlocBuilder<CountryBloc, CountryState>(
         builder: (context, state) {
-          final textColor = Theme.of(
-            context,
-          ).colorScheme.onSurface;
           return SafeArea(
             child: CustomScrollView(
               slivers: [
@@ -62,69 +65,58 @@ class _HomeScrennesState
                     ),
                   ),
                 ] else ...[
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 50,
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                        child: Row(
-                          crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .center,
-                          children: [
-                            Text(
-                              'where in the world?',
-                              style: TextStyle(
-                                color:
-                                    textColor, // <-- از رنگ تم استفاده کن
-                                fontSize: 18,
-                                fontWeight:
-                                    FontWeight
-                                        .bold,
-                              ),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              onPressed: () {
-                                // وقتی کلیک شد، ایونت ThemeToggled رو به ThemeBloc بفرست
-                                context
-                                    .read<
-                                      ThemeBloc
-                                    >()
-                                    .add(
-                                      ThemeToggled(),
-                                    );
-                              },
-                              icon:
-                                  BlocBuilder<
-                                    ThemeBloc,
-                                    ThemeState
-                                  >(
-                                    builder:
-                                        (
-                                          context,
-                                          themeState,
-                                        ) {
-                                          // بر اساس وضعیت تم، آیکون مناسب رو نشون بده
-                                          return Icon(
-                                            themeState.themeMode ==
-                                                    ThemeMode.light
-                                                ? Icons
-                                                      .brightness_2_outlined // آیکون ماه برای حالت روشن
-                                                : Icons.brightness_high_outlined, // آیکون خورشید برای حالت تاریک
-                                            color:
-                                                textColor,
-                                          );
-                                        },
-                                  ),
-                            ),
-                          ],
-                        ),
+                  SliverAppBar(
+                    // ویژگی‌های دیگر SliverAppBar مثل backgroundColor, floating, pinned ...
+
+                    // 1. عنوان را در پراپرتی title قرار بده
+                    title: Text(
+                      'where in the world?',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 18,
+                        fontWeight:
+                            FontWeight.bold,
                       ),
                     ),
+                    elevation: 100,
+                    // 2. فقط دکه را در پراپرتی actions قرار بده
+                    actions: [
+                      
+                      IconButton(
+                        style: IconButton.styleFrom( 
+                          padding:
+                              const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                              ),
+                        ),
+                        onPressed: () {
+                          // وقتی کلیک شد، ایونت ThemeToggled رو به ThemeBloc بفرست
+                          context
+                              .read<ThemeBloc>()
+                              .add(
+                                ThemeToggled(),
+                              );
+                        },
+                        
+                        icon: BlocBuilder<ThemeBloc, ThemeState>(
+                          builder: (context, themeState) {
+                            // بر اساس وضعیت تم، آیکون مناسب رو نشون بده
+                            return Icon(
+                              themeState.themeMode ==
+                                      ThemeMode
+                                          .light
+                                  ? Icons
+                                        .brightness_high_outlined // آیکون ماه برای حالت روشن
+                                  : Icons
+                                        .brightness_2_outlined, // آیکون خورشید برای حالت تاریک
+                              color: textColor,
+                            );
+                          },
+                       
+                        ),
+                      ),
+                      
+                    ],
                   ),
 
                   _GetSearchBox(

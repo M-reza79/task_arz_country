@@ -24,7 +24,6 @@ class CountryDetailBloc
       emit(CountryDetailLoadingState());
       final responseCountry = await _repository
           .getCountryDetailR(
-            continent: event.continent,
             countryName: event.countryName,
           );
 

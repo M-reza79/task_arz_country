@@ -75,11 +75,11 @@ class CountryDetail {
       name:
           jsonObject['name']?['common'] ??
           'Not Available',
-      
+
       nativeName: getNativeName(
         jsonObject['name'],
       ),
-       
+
       population: jsonObject['population'] ?? 0,
       region:
           jsonObject['region'] ?? 'Not Available',
@@ -89,11 +89,11 @@ class CountryDetail {
       capital: List<String>.from(
         jsonObject['capital'] ?? [],
       ),
- 
+
       tld: List<String>.from(
         jsonObject['tld'] ?? [],
       ),
-       
+
       currencies: getCurrencyNames(
         jsonObject['currencies'],
       ),

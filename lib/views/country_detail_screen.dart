@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_arz_country/bloc/country_detail/country_detail_bloc.dart';
 import 'package:task_arz_country/bloc/country_detail/country_detail_event.dart';
 import 'package:task_arz_country/bloc/country_detail/country_detail_state.dart';
+import 'package:task_arz_country/bloc/theme/theme_bloc.dart';
+import 'package:task_arz_country/bloc/theme/theme_event.dart';
+import 'package:task_arz_country/bloc/theme/theme_state.dart';
+import 'package:task_arz_country/data/model/country_detail.dart';
 
 import 'package:task_arz_country/data/model/countrys.dart';
 import 'package:task_arz_country/widgets/cached_image.dart';
@@ -27,8 +31,6 @@ class _CountryDetailScreenState
       context,
     ).add(
       LoadBorderCountriesEvent(
-        continent:
-            widget.country.continents.first,
         countryName: widget.country.name,
       ),
     );
@@ -37,12 +39,12 @@ class _CountryDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(
+      context,
+    ).colorScheme.onSurface;
     return Scaffold(
       body: BlocBuilder<CountryDetailBloc, ICountryDetailState>(
         builder: (context, state) {
-          final textColor = Theme.of(
-            context,
-          ).colorScheme.onSurface;
           return SafeArea(
             child: CustomScrollView(
               slivers: [
@@ -66,96 +68,99 @@ class _CountryDetailScreenState
                     ),
                   ),
                 ] else ...[
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(
-                            top: 5,
-                            right: 30,
-                            left: 30,
-                            bottom: 10,
-                          ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color:
-                              (textColor ==
-                                  Colors.black
-                              ? const Color.fromARGB(
-                                  255,
-                                  237,
-                                  229,
-                                  213,
-                                )
-                              : Colors.black),
-                          borderRadius:
-                              BorderRadius.all(
-                                Radius.circular(
-                                  15,
-                                ),
-                              ),
-                        ),
-                        height: 46,
-                        child: Row(
-                          crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .center,
-                          children: [
-                            SizedBox(width: 16),
+                  SliverAppBar(
+                    // ویژگی‌های دیگر SliverAppBar مثل backgroundColor, floating, pinned ...
 
-                            Expanded(
-                              child: Text(
-                                widget
-                                    .country
-                                    .name,
-                                textAlign:
-                                    TextAlign
-                                        .center,
-                                style: TextStyle(
-                                  fontFamily:
-                                      'SB',
-                                  fontSize: 16,
-                                  color:
-                                      textColor,
-                                ),
-                              ),
-                            ),
-
-                            SizedBox(width: 16),
-                          ],
-                        ),
+                    // 1. عنوان را در پراپرتی title قرار بده
+                    title: Text(
+                      'where in the world?',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 18,
+                        fontWeight:
+                            FontWeight.bold,
                       ),
                     ),
+                    elevation: 100,
+                    // 2. فقط دکه را در پراپرتی actions قرار بده
+                    actions: [
+                      IconButton(
+                        style: IconButton.styleFrom(
+                          padding:
+                              const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                              ),
+                        ),
+                        onPressed: () {
+                          // وقتی کلیک شد، ایونت ThemeToggled رو به ThemeBloc بفرست
+                          context
+                              .read<ThemeBloc>()
+                              .add(
+                                ThemeToggled(),
+                              );
+                        },
+
+                        icon: BlocBuilder<ThemeBloc, ThemeState>(
+                          builder: (context, themeState) {
+                            // بر اساس وضعیت تم، آیکون مناسب رو نشون بده
+                            return Icon(
+                              themeState.themeMode ==
+                                      ThemeMode
+                                          .light
+                                  ? Icons
+                                        .brightness_high_outlined // آیکون ماه برای حالت روشن
+                                  : Icons
+                                        .brightness_2_outlined, // آیکون خورشید برای حالت تاریک
+                              color: textColor,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
                       padding:
                           const EdgeInsets.only(
-                            right: 20,
-                            left: 20,
-                            top: 5,
-                            bottom: 10,
+                            left: 28,
+                            top: 32,
+                            bottom: 20,
+                            right: 28,
                           ),
                       child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment
-                                .center,
                         crossAxisAlignment:
                             CrossAxisAlignment
-                                .center,
+                                .start, // ۳. این خط کلیدیه! محتوا رو به چپ می‌چسبونه
                         children: [
-                          Center(
-                            child: SizedBox(
-                              height: 100,
-                              width:
-                                  MediaQuery.of(
-                                    context,
-                                  ).size.width,
-                              child: CachedkImage(
-                                radius: 15,
-                                imageUrl: widget
-                                    .country
-                                    .flags,
+                          ElevatedButton.icon(
+                            onPressed: () =>
+                                Navigator.of(
+                                  context,
+                                ).pop(),
+                            icon: Icon(
+                              Icons.arrow_back,
+                            ),
+                            label: Text(
+                              'Back',
+                              style: TextStyle(
+                                fontSize: 16,
+
+                                color: textColor,
                               ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              iconColor:
+                                  textColor,
+                              iconSize: 20,
+                              padding:
+                                  const EdgeInsets.symmetric(
+                                    horizontal:
+                                        32,
+                                    vertical: 12,
+                                  ),
+                              elevation: 3,
+                              shadowColor:
+                                  Colors.black,
                             ),
                           ),
                         ],
@@ -168,37 +173,81 @@ class _CountryDetailScreenState
                           const EdgeInsets.only(
                             right: 20,
                             left: 20,
+                            top: 5,
                             bottom: 10,
                           ),
-                      child: Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment
-                                .center,
-                        crossAxisAlignment:
-                            CrossAxisAlignment
-                                .start,
-                        children: [
-                          Text(
-                            'Continent: ${widget.country.continents}',
-                            style: TextStyle(
-                              fontSize: 24,
-
-                              color: textColor,
-                            ),
+                      child: Center(
+                        child: SizedBox(
+                          height: 200,
+                          width: MediaQuery.of(
+                            context,
+                          ).size.width,
+                          child: CachedkImage(
+                            radius: 15,
+                            imageUrl: widget
+                                .country
+                                .flags,
                           ),
-                          Text(
-                            'Capital: ${widget.country.capital}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: textColor,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Divider(),
-                        ],
+                        ),
                       ),
                     ),
                   ),
+                  if (state
+                      is CountryDetailLoadedState) ...[
+                    state.borderCountries.fold(
+                      (l) {
+                        return SliverToBoxAdapter(
+                          child: Text(l),
+                        );
+                      },
+                      (countryDetails) {
+                        return SliverToBoxAdapter(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(
+                                  right: 20,
+                                  left: 20,
+                                  bottom: 10,
+                                ),
+                            child: Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .center,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                              children: [
+                                Text(
+                                  countryDetails[0]
+                                      .continents
+                                      .join(),
+                                  style: TextStyle(
+                                    fontSize: 24,
+
+                                    color:
+                                        textColor,
+                                  ),
+                                ),
+                                Text(
+                                  'Native Name:${countryDetails[0].nativeName} ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color:
+                                        textColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Divider(),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+
                   SliverToBoxAdapter(
                     child: Padding(
                       padding:

@@ -62,7 +62,7 @@ class _MyDropdownWidgetState
       ),
       underline: Container(
         height: 1,
-        color: widget.textColor.withOpacity(0.5),
+        color: widget.textColor,
       ),
       onChanged: (String? newValue) {
         if (newValue != null) {
