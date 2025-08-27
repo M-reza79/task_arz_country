@@ -1,7 +1,6 @@
- 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:task_arz_country/constants/colors.dart';
+import 'package:task_arz_country/constants/app_colors.dart';
 
 class CachedkImage extends StatelessWidget {
   final String imageUrl;
@@ -23,12 +22,12 @@ class CachedkImage extends StatelessWidget {
         fit: BoxFit.cover,
         errorWidget: (context, url, error) {
           return Container(
-            color: Range.red,
+            color: AppColors.red,
             child: Column(
               children: [
                 Icon(
                   Icons.flag,
-                  color: Range.red,
+                  color: AppColors.red,
                 ),
                 Center(
                   child: Text(
@@ -42,7 +41,7 @@ class CachedkImage extends StatelessWidget {
         placeholder: (context, url) {
           return Icon(
             Icons.flag,
-            color: Range.green,
+            color: AppColors.green,
           );
         },
       ),

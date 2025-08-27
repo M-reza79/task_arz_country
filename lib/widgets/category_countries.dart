@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_arz_country/bloc/country/country_bloc.dart';
 import 'package:task_arz_country/bloc/country_detail/country_detail_bloc.dart';
-import 'package:task_arz_country/bloc/country_detail/country_detail_event.dart';
-import 'package:task_arz_country/data/model/country_detail.dart';
-
 import 'package:task_arz_country/data/model/countrys.dart';
 import 'package:task_arz_country/views/country_detail_screen.dart';
-
 import 'package:task_arz_country/widgets/cached_image.dart';
 
 class CategoryCountries extends StatelessWidget {
@@ -34,9 +29,11 @@ class CategoryCountries extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return BlocProvider(
-                     
-                      create: (context) => CountryDetailBloc(),
-                      child: CountryDetailScreen(country: country),
+                    create: (context) =>
+                        CountryDetailBloc(),
+                    child: CountryDetailScreen(
+                      country: country,
+                    ),
                   );
                 },
               ),
@@ -77,20 +74,18 @@ class CategoryCountries extends StatelessWidget {
                   ),
 
                   Container(
-                    width: double
-                        .infinity, // عرض کامل کارت
+                    width: double.infinity,
                     color: const Color(
                       0xFF2d3a4a,
-                    ), // رنگ پس‌زمینه تیره شبیه عکس
+                    ),
                     padding: const EdgeInsets.all(
                       16.0,
                     ),
                     child: Column(
                       crossAxisAlignment:
                           CrossAxisAlignment
-                              .start, // همه نوشته‌ها از چپ شروع بشن
+                              .start,
                       children: [
-                        // نام کشور با استایل بزرگ و بولد
                         Text(
                           country.name,
                           style: const TextStyle(
@@ -104,7 +99,6 @@ class CategoryCountries extends StatelessWidget {
                           height: 12,
                         ),
 
-                        // استفاده از تابع کمکی برای نمایش اطلاعات
                         _buildInfoRow(
                           'Population: ',
                           country.population
@@ -143,14 +137,14 @@ class CategoryCountries extends StatelessWidget {
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16,
-          height: 1.5, // کمی فاصله بین خطوط
+          height: 1.5,
         ),
         children: [
           TextSpan(
             text: title,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-            ), // قسمت عنوان بولد می‌شه
+            ),
           ),
           TextSpan(text: value),
         ],

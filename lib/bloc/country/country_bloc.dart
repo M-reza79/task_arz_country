@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_arz_country/data/di/service_locator.dart';
-
 import 'package:task_arz_country/data/model/countrys.dart';
 import 'package:task_arz_country/data/repositories/country_repository.dart';
 import 'country_event.dart';
@@ -57,9 +56,8 @@ class CountryBloc
           ? _allCountries
           : _allCountries
                 .where(
-                  (c) => c.continents.contains(
-                    event.continent,
-                  ),
+                  (elemant) => elemant.continents
+                      .contains(event.continent),
                 )
                 .toList();
 

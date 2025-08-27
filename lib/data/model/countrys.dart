@@ -18,8 +18,6 @@ class Countrys {
     required this.flags,
   });
 
-
-  // https://restcountries.com/v3.1/all?fields=name,capital,region,borders,population,cca3,continents,flags
   factory Countrys.fromMapJson(
     Map<String, dynamic> jsonObject,
   ) {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_arz_country/bloc/country/country_bloc.dart';
 import 'package:task_arz_country/bloc/theme/theme_bloc.dart';
 import 'package:task_arz_country/bloc/theme/theme_state.dart';
+import 'package:task_arz_country/constants/app_colors.dart';
 import 'package:task_arz_country/data/di/service_locator.dart';
 import 'package:task_arz_country/views/home_scrennes.dart';
 
@@ -15,7 +16,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -24,29 +24,46 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) {
           return MaterialApp(
-            
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               brightness: Brightness.light,
               scaffoldBackgroundColor:
-                  Colors.grey[100],
-              colorScheme: const ColorScheme.light(
-           
-                onSurface: Colors.black,
+                  AppColors.veryLightGray,
+              colorScheme: ColorScheme.light(
+                onSurface:
+                    AppColors.veryDarkBlueText,
               ),
-      
+              appBarTheme: AppBarTheme(
+                backgroundColor: AppColors.white,
+                iconTheme: IconThemeData(
+                  color:
+                      AppColors.veryDarkBlueText,
+                ),
+              ),
+              inputDecorationTheme:
+                  InputDecorationTheme(
+                    fillColor: AppColors.darkGray,
+                  ),
             ),
- 
             darkTheme: ThemeData(
               brightness: Brightness.dark,
               scaffoldBackgroundColor:
-                  Colors.grey[900],
-    
+                  AppColors.veryDarkBlue,
               colorScheme: const ColorScheme.dark(
-                onSurface: Colors.white,
+                onSurface: AppColors.wihtporange,
               ),
+              appBarTheme: const AppBarTheme(
+                backgroundColor:
+                    AppColors.darkBlue,
+                iconTheme: IconThemeData(
+                  color: AppColors.wihtporange,
+                ),
+              ),
+              inputDecorationTheme:
+                  const InputDecorationTheme(
+                    fillColor: AppColors.darkBlue,
+                  ),
             ),
-     
             themeMode: themeState.themeMode,
             home: BlocProvider(
               create: (context) => CountryBloc(),

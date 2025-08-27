@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:task_arz_country/data/datasours/country_detail_data_cource.dart';
 import 'package:task_arz_country/data/di/service_locator.dart';
-
 import 'package:task_arz_country/data/model/country_page_data.dart';
-
 import 'package:task_arz_country/util/api_exception.dart';
 
 abstract class ICountryDetailRepository {

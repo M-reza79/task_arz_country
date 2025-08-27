@@ -6,9 +6,7 @@ import 'package:task_arz_country/bloc/country/country_state.dart';
 import 'package:task_arz_country/bloc/theme/theme_bloc.dart';
 import 'package:task_arz_country/bloc/theme/theme_event.dart';
 import 'package:task_arz_country/bloc/theme/theme_state.dart';
- 
 import 'package:task_arz_country/data/model/countrys.dart';
- 
 import 'package:task_arz_country/widgets/category_countries.dart';
 import 'package:task_arz_country/widgets/my_dropdown_widget.dart';
 import 'package:task_arz_country/widgets/serche.dart';
@@ -38,8 +36,6 @@ class _HomeScrennesState
       context,
     ).colorScheme.onSurface;
     return Scaffold(
-
- 
       body: BlocBuilder<CountryBloc, CountryState>(
         builder: (context, state) {
           return SafeArea(
@@ -66,9 +62,6 @@ class _HomeScrennesState
                   ),
                 ] else ...[
                   SliverAppBar(
-                    // ویژگی‌های دیگر SliverAppBar مثل backgroundColor, floating, pinned ...
-
-                    // 1. عنوان را در پراپرتی title قرار بده
                     title: Text(
                       'where in the world?',
                       style: TextStyle(
@@ -78,44 +71,40 @@ class _HomeScrennesState
                             FontWeight.bold,
                       ),
                     ),
-                    elevation: 100,
-                    // 2. فقط دکه را در پراپرتی actions قرار بده
+                    shadowColor: textColor,
+                    forceElevated: false,
+                    elevation: 0,
                     actions: [
-                      
                       IconButton(
-                        style: IconButton.styleFrom( 
+                        style: IconButton.styleFrom(
                           padding:
                               const EdgeInsets.symmetric(
                                 horizontal: 16.0,
                               ),
                         ),
                         onPressed: () {
-                          // وقتی کلیک شد، ایونت ThemeToggled رو به ThemeBloc بفرست
                           context
                               .read<ThemeBloc>()
                               .add(
                                 ThemeToggled(),
                               );
                         },
-                        
+
                         icon: BlocBuilder<ThemeBloc, ThemeState>(
                           builder: (context, themeState) {
-                            // بر اساس وضعیت تم، آیکون مناسب رو نشون بده
                             return Icon(
                               themeState.themeMode ==
                                       ThemeMode
                                           .light
                                   ? Icons
-                                        .brightness_high_outlined // آیکون ماه برای حالت روشن
+                                        .brightness_high_outlined
                                   : Icons
-                                        .brightness_2_outlined, // آیکون خورشید برای حالت تاریک
+                                        .brightness_2_outlined,
                               color: textColor,
                             );
                           },
-                       
                         ),
                       ),
-                      
                     ],
                   ),
 

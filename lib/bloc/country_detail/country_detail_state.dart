@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:task_arz_country/data/model/country_detail.dart';
 import 'package:task_arz_country/data/model/country_page_data.dart';
 
 abstract class ICountryDetailState {}

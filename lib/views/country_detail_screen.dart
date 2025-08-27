@@ -6,8 +6,6 @@ import 'package:task_arz_country/bloc/country_detail/country_detail_state.dart';
 import 'package:task_arz_country/bloc/theme/theme_bloc.dart';
 import 'package:task_arz_country/bloc/theme/theme_event.dart';
 import 'package:task_arz_country/bloc/theme/theme_state.dart';
-import 'package:task_arz_country/data/model/country_detail.dart';
-
 import 'package:task_arz_country/data/model/countrys.dart';
 import 'package:task_arz_country/widgets/cached_image.dart';
 
@@ -67,9 +65,6 @@ class _CountryDetailScreenState
                   ),
                 ] else ...[
                   SliverAppBar(
-                    // ویژگی‌های دیگر SliverAppBar مثل backgroundColor, floating, pinned ...
-
-                    // 1. عنوان را در پراپرتی title قرار بده
                     title: Text(
                       'where in the world?',
                       style: TextStyle(
@@ -79,8 +74,9 @@ class _CountryDetailScreenState
                             FontWeight.bold,
                       ),
                     ),
-                    elevation: 100,
-                    // 2. فقط دکه را در پراپرتی actions قرار بده
+                    shadowColor: textColor,
+                    forceElevated: false,
+                    elevation: 0,
                     actions: [
                       IconButton(
                         style: IconButton.styleFrom(
@@ -90,7 +86,6 @@ class _CountryDetailScreenState
                               ),
                         ),
                         onPressed: () {
-                          // وقتی کلیک شد، ایونت ThemeToggled رو به ThemeBloc بفرست
                           context
                               .read<ThemeBloc>()
                               .add(
@@ -100,15 +95,14 @@ class _CountryDetailScreenState
 
                         icon: BlocBuilder<ThemeBloc, ThemeState>(
                           builder: (context, themeState) {
-                            // بر اساس وضعیت تم، آیکون مناسب رو نشون بده
                             return Icon(
                               themeState.themeMode ==
                                       ThemeMode
                                           .light
                                   ? Icons
-                                        .brightness_high_outlined // آیکون ماه برای حالت روشن
+                                        .brightness_high_outlined
                                   : Icons
-                                        .brightness_2_outlined, // آیکون خورشید برای حالت تاریک
+                                        .brightness_2_outlined,
                               color: textColor,
                             );
                           },
@@ -128,7 +122,7 @@ class _CountryDetailScreenState
                       child: Column(
                         crossAxisAlignment:
                             CrossAxisAlignment
-                                .start, // ۳. این خط کلیدیه! محتوا رو به چپ می‌چسبونه
+                                .start,
                         children: [
                           ElevatedButton.icon(
                             onPressed: () =>
@@ -366,15 +360,13 @@ class _CountryDetailScreenState
                                 if (countryDetails
                                     .borderCountries
                                     .isEmpty)
-                                  SliverToBoxAdapter(
-                                    child: const Text(
-                                      'This country has no land borders.',
-                                    ),
+                                  const Text(
+                                    'This country has no land borders.',
                                   ),
 
                                 SingleChildScrollView(
                                   scrollDirection:
-                                      Axis.horizontal, // 👉 افقی می‌کنه
+                                      Axis.horizontal,
                                   child: Row(
                                     children: countryDetails.borderCountries.map((
                                       borderCountry,
@@ -383,7 +375,7 @@ class _CountryDetailScreenState
                                         padding: const EdgeInsets.only(
                                           right:
                                               10,
-                                        ), // فاصله بین دکمه‌ها
+                                        ),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                             elevation:
