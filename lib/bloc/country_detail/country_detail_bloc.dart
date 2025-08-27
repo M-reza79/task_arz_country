@@ -17,19 +17,13 @@ class CountryDetailBloc
 
   CountryDetailBloc()
     : super(CountryDetailInitialState()) {
-    on<LoadBorderCountriesEvent>((
-      event,
-      emit,
-    ) async {
+    on<LoadCountryDataEvent>((event, emit) async {
       emit(CountryDetailLoadingState());
-      final responseCountry = await _repository
-          .getCountryDetailR(
-            countryName: event.countryName,
-          );
+      final response = await _repository
+          .getCountryPageDataR(event.countryName);
 
-      emit(
-        CountryDetailLoadedState(responseCountry),
-      );
+      // و پاس دادن مستقیم نتیجه به State
+      emit(CountryDetailLoadedState(response));
     });
   }
 }

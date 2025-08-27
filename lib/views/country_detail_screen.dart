@@ -30,9 +30,7 @@ class _CountryDetailScreenState
     BlocProvider.of<CountryDetailBloc>(
       context,
     ).add(
-      LoadBorderCountriesEvent(
-        countryName: widget.country.name,
-      ),
+      LoadCountryDataEvent(widget.country.name),
     );
     super.initState();
   }
@@ -194,7 +192,7 @@ class _CountryDetailScreenState
                   ),
                   if (state
                       is CountryDetailLoadedState) ...[
-                    state.borderCountries.fold(
+                    state.countryPageData.fold(
                       (l) {
                         return SliverToBoxAdapter(
                           child: Text(l),
@@ -218,7 +216,8 @@ class _CountryDetailScreenState
                                       .start,
                               children: [
                                 Text(
-                                  countryDetails[0]
+                                  countryDetails
+                                      .mainCountry
                                       .continents
                                       .join(),
                                   style: TextStyle(
@@ -232,7 +231,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'Native Name: ${countryDetails[0].nativeName} ',
+                                  'Native Name: ${countryDetails.mainCountry.nativeName} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -243,7 +242,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'Population: ${countryDetails[0].population} ',
+                                  'Population: ${countryDetails.mainCountry.population} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -254,7 +253,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'Region: ${countryDetails[0].region} ',
+                                  'Region: ${countryDetails.mainCountry.region} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -265,7 +264,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'Sub Region: ${countryDetails[0].subregion} ',
+                                  'Sub Region: ${countryDetails.mainCountry.subregion} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -276,7 +275,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'capita: ${countryDetails[0].capital.join()} ',
+                                  'capita: ${countryDetails.mainCountry.capital.join()} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -287,7 +286,7 @@ class _CountryDetailScreenState
                                   height: 20,
                                 ),
                                 Text(
-                                  'Top Level Domain: ${countryDetails[0].tld[0]} ',
+                                  'Top Level Domain: ${countryDetails.mainCountry.tld[0]} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -298,7 +297,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'Continents: ${countryDetails[0].continents.join()} ',
+                                  'Continents: ${countryDetails.mainCountry.continents.join()} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -309,7 +308,7 @@ class _CountryDetailScreenState
                                   height: 5,
                                 ),
                                 Text(
-                                  'Languages: ${countryDetails[0].languages.join(', ')} ',
+                                  'Languages: ${countryDetails.mainCountry.languages.join(', ')} ',
                                   style: TextStyle(
                                     fontSize: 20,
                                     color:
@@ -317,7 +316,7 @@ class _CountryDetailScreenState
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 5,
+                                  height: 20,
                                 ),
                               ],
                             ),
@@ -329,7 +328,7 @@ class _CountryDetailScreenState
 
                   if (state
                       is CountryDetailLoadedState) ...[
-                    state.borderCountries.fold(
+                    state.countryPageData.fold(
                       (l) {
                         return SliverToBoxAdapter(
                           child: Text(l),
@@ -337,57 +336,104 @@ class _CountryDetailScreenState
                       },
                       (countryDetails) {
                         return SliverToBoxAdapter(
-                          child: Container(
-                            margin:
-                                EdgeInsets.only(
-                                  left: 10,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(
+                                  horizontal:
+                                      28.0,
+                                  vertical: 20.0,
                                 ),
-                            height:
-                                50, // ارتفاع لیست افقی
-                            child: ListView.builder(
-                              scrollDirection:
-                                  Axis.horizontal,
-                              itemCount:
-                                  countryDetails[0]
-                                      .borders
-                                      .length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(
-                                        horizontal:
-                                            4.0,
-                                        vertical:
-                                            5,
-                                      ),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      iconColor:
-                                          textColor,
-                                      iconSize:
-                                          20,
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                              children: [
+                                Text(
+                                  'Border Countries:',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight:
+                                        FontWeight
+                                            .bold,
+                                    color:
+                                        textColor,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
 
-                                      elevation:
-                                          3,
-                                      shadowColor:
-                                          Colors
-                                              .black,
-                                    ),
-                                    onPressed:
-                                        () {},
-                                    child: Text(
-                                      countryDetails[0]
-                                          .borders[index],
-                                      style: TextStyle(
-                                        fontSize:
-                                            14,
-                                        color:
-                                            textColor,
-                                      ),
+                                if (countryDetails
+                                    .borderCountries
+                                    .isEmpty)
+                                  SliverToBoxAdapter(
+                                    child: const Text(
+                                      'This country has no land borders.',
                                     ),
                                   ),
-                                );
-                              },
+
+                                SingleChildScrollView(
+                                  scrollDirection:
+                                      Axis.horizontal, // 👉 افقی می‌کنه
+                                  child: Row(
+                                    children: countryDetails.borderCountries.map((
+                                      borderCountry,
+                                    ) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          right:
+                                              10,
+                                        ), // فاصله بین دکمه‌ها
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            elevation:
+                                                3,
+                                            shadowColor:
+                                                Colors.black,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  20,
+                                              vertical:
+                                                  10,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (
+                                                      context,
+                                                    ) {
+                                                      return BlocProvider(
+                                                        create:
+                                                            (
+                                                              context,
+                                                            ) => CountryDetailBloc(),
+                                                        child: CountryDetailScreen(
+                                                          country: borderCountry,
+                                                        ),
+                                                      );
+                                                    },
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            borderCountry
+                                                .name,
+                                            style: TextStyle(
+                                              color:
+                                                  textColor,
+                                              fontSize:
+                                                  14,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         );

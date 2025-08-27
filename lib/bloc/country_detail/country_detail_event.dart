@@ -1,10 +1,7 @@
 abstract class ICountryDetailEvent {}
 
-class LoadBorderCountriesEvent
+class LoadCountryDataEvent 
     extends ICountryDetailEvent {
   final String countryName;
-
-  LoadBorderCountriesEvent({
-    required this.countryName,
-  });
+  LoadCountryDataEvent (this.countryName);
 }
