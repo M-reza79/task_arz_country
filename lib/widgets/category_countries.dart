@@ -90,9 +90,9 @@ class CategoryCountries extends StatelessWidget {
                           country.name,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 22,
+                            fontSize: 16,
                             fontWeight:
-                                FontWeight.bold,
+                                FontWeight.w600,
                           ),
                         ),
                         const SizedBox(
@@ -137,6 +137,7 @@ class CategoryCountries extends StatelessWidget {
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16,
+          fontWeight: FontWeight.w300,
           height: 1.5,
         ),
         children: [

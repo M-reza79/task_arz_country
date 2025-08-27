@@ -68,7 +68,7 @@ class _HomeScrennesState
                         color: textColor,
                         fontSize: 18,
                         fontWeight:
-                            FontWeight.bold,
+                            FontWeight.w800,
                       ),
                     ),
                     shadowColor: textColor,
@@ -193,7 +193,11 @@ class _GetRatingBox extends StatelessWidget {
             Spacer(),
             Text(
               'Total: ${countrylist.length}',
-              style: TextStyle(color: textColor),
+              style: TextStyle(
+                color: textColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
@@ -214,7 +218,7 @@ class _GetSearchBox extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsetsGeometry.only(
-          top: 10,
+          top: 20,
           right: 20,
           left: 20,
           bottom: 10,

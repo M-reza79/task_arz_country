@@ -67,11 +67,12 @@ class _CountryDetailScreenState
                   SliverAppBar(
                     title: Text(
                       'where in the world?',
+
                       style: TextStyle(
                         color: textColor,
                         fontSize: 18,
                         fontWeight:
-                            FontWeight.bold,
+                            FontWeight.w800,
                       ),
                     ),
                     shadowColor: textColor,
@@ -114,10 +115,10 @@ class _CountryDetailScreenState
                     child: Padding(
                       padding:
                           const EdgeInsets.only(
-                            left: 28,
+                            left: 20,
                             top: 32,
                             bottom: 20,
-                            right: 28,
+                            right: 30,
                           ),
                       child: Column(
                         crossAxisAlignment:
@@ -135,24 +136,32 @@ class _CountryDetailScreenState
                             label: Text(
                               'Back',
                               style: TextStyle(
-                                fontSize: 16,
-
+                                fontSize: 14,
+                                fontWeight:
+                                    FontWeight
+                                        .w800,
                                 color: textColor,
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(
+                                      10,
+                                    ),
+                              ),
                               iconColor:
                                   textColor,
                               iconSize: 20,
                               padding:
                                   const EdgeInsets.symmetric(
                                     horizontal:
-                                        32,
+                                        20,
                                     vertical: 12,
                                   ),
                               elevation: 3,
                               shadowColor:
-                                  Colors.black,
+                                  textColor,
                             ),
                           ),
                         ],
@@ -216,6 +225,9 @@ class _CountryDetailScreenState
                                       .join(),
                                   style: TextStyle(
                                     fontSize: 24,
+                                    fontWeight:
+                                        FontWeight
+                                            .w800,
 
                                     color:
                                         textColor,
@@ -227,7 +239,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Native Name: ${countryDetails.mainCountry.nativeName} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -238,7 +253,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Population: ${countryDetails.mainCountry.population} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -249,7 +267,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Region: ${countryDetails.mainCountry.region} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -260,7 +281,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Sub Region: ${countryDetails.mainCountry.subregion} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -271,7 +295,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'capita: ${countryDetails.mainCountry.capital.join()} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -282,7 +309,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Top Level Domain: ${countryDetails.mainCountry.tld[0]} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -293,7 +323,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Continents: ${countryDetails.mainCountry.continents.join()} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -304,7 +337,10 @@ class _CountryDetailScreenState
                                 Text(
                                   'Languages: ${countryDetails.mainCountry.languages.join(', ')} ',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 14,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
                                     color:
                                         textColor,
                                   ),
@@ -335,7 +371,6 @@ class _CountryDetailScreenState
                                 const EdgeInsets.symmetric(
                                   horizontal:
                                       28.0,
-                                  vertical: 20.0,
                                 ),
                             child: Column(
                               crossAxisAlignment:
@@ -346,6 +381,7 @@ class _CountryDetailScreenState
                                   'Border Countries:',
                                   style: TextStyle(
                                     fontSize: 24,
+
                                     fontWeight:
                                         FontWeight
                                             .bold,
@@ -354,14 +390,24 @@ class _CountryDetailScreenState
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 16,
+                                  height: 10,
                                 ),
 
                                 if (countryDetails
                                     .borderCountries
                                     .isEmpty)
-                                  const Text(
+                                  Text(
                                     'This country has no land borders.',
+                                    style: TextStyle(
+                                      fontSize:
+                                          24,
+
+                                      fontWeight:
+                                          FontWeight
+                                              .bold,
+                                      color:
+                                          textColor,
+                                    ),
                                   ),
 
                                 SingleChildScrollView(
@@ -378,6 +424,11 @@ class _CountryDetailScreenState
                                         ),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                5,
+                                              ),
+                                            ),
                                             elevation:
                                                 3,
                                             shadowColor:
@@ -418,6 +469,8 @@ class _CountryDetailScreenState
                                                   textColor,
                                               fontSize:
                                                   14,
+                                              fontWeight:
+                                                  FontWeight.w600,
                                             ),
                                           ),
                                         ),

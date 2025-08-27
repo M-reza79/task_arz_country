@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              fontFamily: 'NunitoSans',
               brightness: Brightness.light,
               scaffoldBackgroundColor:
                   AppColors.veryLightGray,
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
                   ),
             ),
             darkTheme: ThemeData(
+              fontFamily: 'NunitoSans',
               brightness: Brightness.dark,
               scaffoldBackgroundColor:
                   AppColors.veryDarkBlue,

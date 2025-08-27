@@ -25,7 +25,7 @@ class Serche extends StatelessWidget {
         style: TextStyle(
           color: textColor,
           fontSize: 16,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
 
         textAlign: TextAlign.left,
@@ -53,7 +53,7 @@ class Serche extends StatelessWidget {
           hintText: '...Search for a country',
           hintStyle: TextStyle(
             color: textColor,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
           prefixIcon: Padding(
