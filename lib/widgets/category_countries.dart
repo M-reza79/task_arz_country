@@ -90,9 +90,9 @@ class CategoryCountries extends StatelessWidget {
                           country.name,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 20,
                             fontWeight:
-                                FontWeight.w600,
+                                FontWeight.bold,
                           ),
                         ),
                         const SizedBox(

@@ -221,8 +221,7 @@ class _CountryDetailScreenState
                                 Text(
                                   countryDetails
                                       .mainCountry
-                                      .continents
-                                      .join(),
+                                      .name,
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight:
