@@ -64,135 +64,13 @@ class _CountryDetailScreenState
                     ),
                   ),
                 ] else ...[
-                  SliverAppBar(
-                    title: Text(
-                      'where in the world?',
-
-                      style: TextStyle(
-                        color: textColor,
-                        fontSize: 18,
-                        fontWeight:
-                            FontWeight.w800,
-                      ),
-                    ),
-                    shadowColor: textColor,
-                    forceElevated: false,
-                    elevation: 0,
-                    actions: [
-                      IconButton(
-                        style: IconButton.styleFrom(
-                          padding:
-                              const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                        ),
-                        onPressed: () {
-                          context
-                              .read<ThemeBloc>()
-                              .add(
-                                ThemeToggled(),
-                              );
-                        },
-
-                        icon: BlocBuilder<ThemeBloc, ThemeState>(
-                          builder: (context, themeState) {
-                            return Icon(
-                              themeState.themeMode ==
-                                      ThemeMode
-                                          .light
-                                  ? Icons
-                                        .brightness_high_outlined
-                                  : Icons
-                                        .brightness_2_outlined,
-                              color: textColor,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                  AppBarSliver(
+                    textColor: textColor,
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(
-                            left: 20,
-                            top: 32,
-                            bottom: 20,
-                            right: 30,
-                          ),
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment
-                                .start,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () =>
-                                Navigator.of(
-                                  context,
-                                ).pop(),
-                            icon: Icon(
-                              Icons.arrow_back,
-                            ),
-                            label: Text(
-                              'Back',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight:
-                                    FontWeight
-                                        .w800,
-                                color: textColor,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(
-                                      10,
-                                    ),
-                              ),
-                              iconColor:
-                                  textColor,
-                              iconSize: 20,
-                              padding:
-                                  const EdgeInsets.symmetric(
-                                    horizontal:
-                                        20,
-                                    vertical: 12,
-                                  ),
-                              elevation: 3,
-                              shadowColor:
-                                  textColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  BackBotton(
+                    textColor: textColor,
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(
-                            right: 20,
-                            left: 20,
-                            top: 5,
-                            bottom: 10,
-                          ),
-                      child: Center(
-                        child: SizedBox(
-                          height: 200,
-                          width: MediaQuery.of(
-                            context,
-                          ).size.width,
-                          child: CachedkImage(
-                            radius: 15,
-                            imageUrl: widget
-                                .country
-                                .flags,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  ImageCountry(widget: widget),
                   if (state
                       is CountryDetailLoadedState) ...[
                     state.countryPageData.fold(
@@ -496,6 +374,152 @@ class _CountryDetailScreenState
           );
         },
       ),
+    );
+  }
+}
+
+class ImageCountry extends StatelessWidget {
+  const ImageCountry({
+    super.key,
+    required this.widget,
+  });
+
+  final CountryDetailScreen widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 20,
+          left: 20,
+          top: 5,
+          bottom: 10,
+        ),
+        child: Center(
+          child: SizedBox(
+            height: 200,
+            width: MediaQuery.of(
+              context,
+            ).size.width,
+            child: CachedkImage(
+              radius: 15,
+              imageUrl: widget.country.flags,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BackBotton extends StatelessWidget {
+  const BackBotton({
+    super.key,
+    required this.textColor,
+  });
+
+  final Color textColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          top: 32,
+          bottom: 20,
+          right: 30,
+        ),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          children: [
+            ElevatedButton.icon(
+              onPressed: () =>
+                  Navigator.of(context).pop(),
+              icon: Icon(Icons.arrow_back),
+              label: Text(
+                'Back',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                  color: textColor,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(10),
+                ),
+                iconColor: textColor,
+                iconSize: 20,
+                padding:
+                    const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                elevation: 3,
+                shadowColor: textColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppBarSliver extends StatelessWidget {
+  const AppBarSliver({
+    super.key,
+    required this.textColor,
+  });
+
+  final Color textColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      title: Text(
+        'where in the world?',
+
+        style: TextStyle(
+          color: textColor,
+          fontSize: 18,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      shadowColor: textColor,
+      forceElevated: false,
+      elevation: 0,
+      actions: [
+        IconButton(
+          style: IconButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+            ),
+          ),
+          onPressed: () {
+            context.read<ThemeBloc>().add(
+              ThemeToggled(),
+            );
+          },
+
+          icon: BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, themeState) {
+              return Icon(
+                themeState.themeMode ==
+                        ThemeMode.light
+                    ? Icons
+                          .brightness_high_outlined
+                    : Icons.brightness_2_outlined,
+                color: textColor,
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

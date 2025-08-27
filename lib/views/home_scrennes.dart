@@ -61,52 +61,7 @@ class _HomeScrennesState
                     ),
                   ),
                 ] else ...[
-                  SliverAppBar(
-                    title: Text(
-                      'where in the world?',
-                      style: TextStyle(
-                        color: textColor,
-                        fontSize: 18,
-                        fontWeight:
-                            FontWeight.w800,
-                      ),
-                    ),
-                    shadowColor: textColor,
-                    forceElevated: false,
-                    elevation: 0,
-                    actions: [
-                      IconButton(
-                        style: IconButton.styleFrom(
-                          padding:
-                              const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                        ),
-                        onPressed: () {
-                          context
-                              .read<ThemeBloc>()
-                              .add(
-                                ThemeToggled(),
-                              );
-                        },
-
-                        icon: BlocBuilder<ThemeBloc, ThemeState>(
-                          builder: (context, themeState) {
-                            return Icon(
-                              themeState.themeMode ==
-                                      ThemeMode
-                                          .light
-                                  ? Icons
-                                        .brightness_high_outlined
-                                  : Icons
-                                        .brightness_2_outlined,
-                              color: textColor,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                  AppBarSliver(textColor: textColor),
 
                   _GetSearchBox(
                     textColor: textColor,
@@ -161,6 +116,65 @@ class _HomeScrennesState
           );
         },
       ),
+    );
+  }
+}
+
+class AppBarSliver extends StatelessWidget {
+  const AppBarSliver({
+    super.key,
+    required this.textColor,
+  });
+
+  final Color textColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      title: Text(
+        'where in the world?',
+        style: TextStyle(
+          color: textColor,
+          fontSize: 18,
+          fontWeight:
+              FontWeight.w800,
+        ),
+      ),
+      shadowColor: textColor,
+      forceElevated: false,
+      elevation: 0,
+      actions: [
+        IconButton(
+          style: IconButton.styleFrom(
+            padding:
+                const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                ),
+          ),
+          onPressed: () {
+            context
+                .read<ThemeBloc>()
+                .add(
+                  ThemeToggled(),
+                );
+          },
+    
+          icon: BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, themeState) {
+              return Icon(
+                themeState.themeMode ==
+                        ThemeMode
+                            .light
+                    ? Icons
+                          .brightness_high_outlined
+                    : Icons
+                          .brightness_2_outlined,
+                color: textColor,
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
