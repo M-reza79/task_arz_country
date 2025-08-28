@@ -22,7 +22,10 @@ class CountryRepository
           .getCountriesD();
       return right(responseCountry);
     } on ApiException catch (ex) {
-      return left(ex.message ?? 'خطا');
+      return left(
+        ex.message ??
+            '  اینترنت خود را وصل کنید  ',
+      );
     }
   }
 }
