@@ -24,7 +24,7 @@ class CountryRepository
     } on ApiException catch (ex) {
       return left(
         ex.message ??
-            '  اینترنت خود را وصل کنید  ',
+            '  اینترنت خود را وصل کنید   ',
       );
     }
   }
